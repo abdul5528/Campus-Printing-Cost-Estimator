@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="StudySync - A Student Group Study Scheduler for organizing study groups and academic sessions.">
+
+    <title>StudySync | Student Group Study Scheduler</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+
+            <div>
+                <h2>StudySync</h2>
+                <p>Plan Together. Learn Better.</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <button
+                class="menu-item active"
+                data-view="dashboard"
+                type="button">
+                🏠 Dashboard
+            </button>
+
+            <button
+                class="menu-item"
+                data-view="sessions"
+                type="button">
+                📅 Study Sessions
+            </button>
+
+            <button
+                class="menu-item"
+                data-view="groups"
+                type="button">
+                👥 Study Groups
+            </button>
+
+            <button
+                class="menu-item"
+                data-view="completed"
+                type="button">
+                ✅ Completed Sessions
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button id="themeToggle" type="button">
+                🌙 Dark Mode
+            </button>
+
+            <div class="student-info">
+                <p>Developed By</p>
+                <strong>Abdullahi Isyak Maikudi</strong>
+                <small>2025/HND/SWD/074</small>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="header-left">
+
+                <button
+                    class="mobile-menu-btn"
+                    id="menuToggle"
+                    type="button"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    aria-controls="sidebar">
+                    ☰
+                </button>
+
+                <div>
+                    <h1 id="pageTitle">Dashboard</h1>
+
+                    <p>
+                        Organize your study groups and
+                        achieve more together.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button
+                    class="btn btn-outline"
+                    id="createGroupBtn"
+                    type="button">
+                    + New Group
+                </button>
+
+                <button
+                    class="btn btn-primary"
+                    id="createSessionBtn"
+                    type="button">
+                    + Schedule Session
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             DASHBOARD STATISTICS
+        ====================================== -->
+
+        <section class="stats-container" id="statsSection">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    👥
+                </div>
+
+                <div class="stat-details">
+                    <p>Total Study Groups</p>
+                    <h2 id="totalGroups">0</h2>
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    📅
+                </div>
+
+                <div class="stat-details">
+                    <p>Upcoming Sessions</p>
+                    <h2 id="upcomingSessions">0</h2>
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✅
+                </div>
+
+                <div class="stat-details">
+                    <p>Completed Sessions</p>
+                    <h2 id="completedSessions">0</h2>
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    📖
+                </div>
+
+                <div class="stat-details">
+                    <p>Total Sessions</p>
+                    <h2 id="totalSessions">0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             DASHBOARD WELCOME
+        ====================================== -->
+
+        <section class="welcome-banner" id="welcomeBanner">
+
+            <div>
+                <span class="welcome-label">
+                    STUDY SMARTER
+                </span>
+
+                <h2>
+                    Better Planning,
+                    Better Results.
+                </h2>
+
+                <p>
+                    Create study groups, organize sessions,
+                    and stay focused on your academic goals.
+                </p>
+
+                <button
+                    class="btn btn-light"
+                    id="welcomeScheduleBtn"
+                    type="button">
+                    Schedule Your First Session →
+                </button>
+            </div>
+
+            <div class="welcome-illustration"
+                 aria-hidden="true">
+                📚
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             STUDY SESSIONS
+        ====================================== -->
+
+        <section class="content-section" id="sessionsSection">
+
+            <div class="section-header">
+
+                <div>
+                    <h2 id="sessionsHeading">
+                        Upcoming Study Sessions
+                    </h2>
+
+                    <p>
+                        Keep track of your scheduled
+                        academic activities.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH AND FILTER -->
+
+            <div class="filter-bar">
+
+                <input
+                    type="search"
+                    id="searchSessions"
+                    placeholder="Search sessions or subjects..."
+                    aria-label="Search study sessions"
+                >
+
+                <select
+                    id="statusFilter"
+                    aria-label="Filter sessions by status">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="upcoming">
+                        Upcoming
+                    </option>
+
+                    <option value="completed">
+                        Completed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- SESSION CARDS -->
+
+            <div class="sessions-grid" id="sessionsContainer">
+
+                <!-- Generated by JavaScript -->
+
+            </div>
+
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty-state" id="sessionsEmpty">
+
+                <div class="empty-icon">📅</div>
+
+                <h3>No Study Sessions Yet</h3>
+
+                <p>
+                    Start planning your academic success
+                    by scheduling a study session.
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    id="emptySessionBtn"
+                    type="button">
+                    + Schedule Session
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             STUDY GROUPS
+        ====================================== -->
+
+        <section
+            class="content-section"
+            id="groupsSection"
+            hidden>
+
+            <div class="section-header">
+
+                <div>
+                    <h2>My Study Groups</h2>
+
+                    <p>
+                        Organize your classmates
+                        into productive study teams.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="groups-grid" id="groupsContainer">
+
+                <!-- Generated by JavaScript -->
+
+            </div>
+
+
+            <div class="empty-state" id="groupsEmpty">
+
+                <div class="empty-icon">👥</div>
+
+                <h3>No Study Groups Yet</h3>
+
+                <p>
+                    Create your first study group
+                    to begin organizing sessions.
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    id="emptyGroupBtn"
+                    type="button">
+                    + Create Group
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="footer">
+
+            <p>
+                Developed by
+                <strong>
+                    Abdullahi Isyak Maikudi
+                </strong>
+            </p>
+
+            <p>
+                Matric Number: 2025/HND/SWD/074
+            </p>
+
+            <p>
+                SWD 417 Assignment |
+                Design and Implementation of a
+                Student Group Study Scheduler
+            </p>
+
+            <p>
+                &copy; 2026 StudySync.
+                All Rights Reserved.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =====================================
+         CREATE / EDIT STUDY GROUP MODAL
+    ====================================== -->
+
+    <div
+        class="modal"
+        id="groupModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="groupModalTitle"
+        hidden>
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2 id="groupModalTitle">
+                    Create Study Group
+                </h2>
+
+                <button
+                    class="close-btn"
+                    id="closeGroupModal"
+                    type="button"
+                    aria-label="Close group form">
+                    &times;
+                </button>
+
+            </div>
+
+            <form id="groupForm">
+
+                <input
+                    type="hidden"
+                    id="groupId"
+                >
+
+                <div class="form-group">
+
+                    <label for="groupName">
+                        Group Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="groupName"
+                        placeholder="e.g. Software Engineering Team"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="groupSubject">
+                        Subject / Course
+                    </label>
+
+                    <input
+                        type="text"
+                        id="groupSubject"
+                        placeholder="e.g. Software Development"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="groupDescription">
+                        Group Description
+                    </label>
+
+                    <textarea
+                        id="groupDescription"
+                        rows="3"
+                        placeholder="Describe your study group..."
+                    ></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="groupMembers">
+                        Group Members
+                    </label>
+
+                    <textarea
+                        id="groupMembers"
+                        rows="4"
+                        placeholder="Enter member names, separated by commas"
+                    ></textarea>
+
+                    <small>
+                        Separate each member's name
+                        with a comma.
+                    </small>
+
+                </div>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="cancelGroupBtn">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+                        Save Group
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         CREATE / EDIT SESSION MODAL
+    ====================================== -->
+
+    <div
+        class="modal"
+        id="sessionModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sessionModalTitle"
+        hidden>
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2 id="sessionModalTitle">
+                    Schedule Study Session
+                </h2>
+
+                <button
+                    class="close-btn"
+                    id="closeSessionModal"
+                    type="button"
+                    aria-label="Close session form">
+                    &times;
+                </button>
+
+            </div>
+
+            <form id="sessionForm">
+
+                <input
+                    type="hidden"
+                    id="sessionId"
+                >
+
+                <div class="form-group">
+
+                    <label for="sessionTitle">
+                        Session Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="sessionTitle"
+                        placeholder="e.g. JavaScript Revision"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="sessionGroup">
+                        Study Group
+                    </label>
+
+                    <select id="sessionGroup" required>
+
+                        <option value="">
+                            Select Study Group
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="sessionDate">
+                            Study Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="sessionDate"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="sessionTime">
+                            Start Time
+                        </label>
+
+                        <input
+                            type="time"
+                            id="sessionTime"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="sessionDuration">
+                        Duration
+                    </label>
+
+                    <select id="sessionDuration">
+
+                        <option value="30">
+                            30 Minutes
+                        </option>
+
+                        <option value="60" selected>
+                            1 Hour
+                        </option>
+
+                        <option value="90">
+                            1 Hour 30 Minutes
+                        </option>
+
+                        <option value="120">
+                            2 Hours
+                        </option>
+
+                        <option value="180">
+                            3 Hours
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="sessionLocation">
+                        Study Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="sessionLocation"
+                        placeholder="e.g. School Library / Online"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="sessionDescription">
+                        Session Description
+                    </label>
+
+                    <textarea
+                        id="sessionDescription"
+                        rows="4"
+                        placeholder="What will your group study?"
+                    ></textarea>
+
+                </div>
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="cancelSessionBtn">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+                        Save Session
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
